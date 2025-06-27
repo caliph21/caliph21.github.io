@@ -21,7 +21,7 @@ const SITE_CONFIG = {
 
 // API站点配置
 const API_SITES = {
-⊕奇虎资源网: {
+    qhzyw: {
         api: 'https://caiji.qhzyapi.com/api.php/provide/vod',
         name: '⊕奇虎资源网',
         detail: 'http://caiji.dyttzyapi.com',
