@@ -26,251 +26,94 @@ const API_SITES = {
         name: '奇虎资源网',
         detail: 'http://caiji.dyttzyapi.com',
     },
-    ⊕速播资源网: {
-        api: 'https://subocaiji.com/api.php/provide/vod',
-        name: '⊕速播资源网',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    ⊕天空资源网5: {
-        api: 'https://api.tiankongapi.com/api.php/provide/vod',
-        name: '⊕天空资源网5',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    ⊕光速资源网8: {
-        api: 'https://api.guangsuapi.com/api.php/provide/vod',
-        name: '⊕光速资源网8',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    ⊕金鹰资源网: {
-        api: 'https://jyzyapi.com/provide/vod',
-        name: '⊕金鹰资源网',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    ⊕鸭鸭资源网: {
-        api: 'https://cj2.yayazy.net/api.php/provide/vod/from/yym3u8',
-        name: '⊕鸭鸭资源网',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    ⊕快车资源网: {
-        api: 'https://caiji.kczyapi.com/api.php/provide/vod',
-        name: '⊕快车资源网',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    ⊕AGE动漫1: {
-        api: 'https://ageapi.omwjhz.com/v2/search',
-        name: '⊕AGE动漫1',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    ⊕极速资源网: {
-        api: 'https://jszyapi.com/api.php/provide/vod',
-        name: '⊕极速资源网',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    ⊕闪电资源网: {
-        api: 'https://xsd.sdzyapi.com/api.php/provide/vod',
-        name: '⊕闪电资源网',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    ⊕索尼资源网: {
-        api: 'https://suoniapi.com/api.php/provide/vod/from/snm3u8',
-        name: '⊕索尼资源网',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    ⊕360资源网: {
-        api: 'https://360zy.com/api.php/provide/vod',
-        name: '⊕360资源网',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    ⊕新浪资源网: {
-        api: 'https://api.xinlangapi.com/xinlangapi.php/provide/vod',
-        name: '⊕新浪资源网',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    ⊕虎牙资源网: {
-        api: 'https://www.huyaapi.com/api.php/provide/vod',
-        name: '⊕虎牙资源网',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    ⊕量子资源网: {
-        api: 'https://cj.lziapi.com/api.php/provide/vod',
-        name: '⊕量子资源网',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    ⊕豪华资源网: {
-        api: 'https://hhzyapi.com/api.php/provide/vod',
-        name: '⊕豪华资源网',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    ⊕云解资源网: {
-        api: 'https://m3u8.apiyhzy.com/api.php/provide/vod',
-        name: '⊕云解资源网',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    ⊕卧龙资源网: {
-        api: 'https://collect.wolongzyw.com/api.php/provide/vod',
-        name: '⊕卧龙资源网',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    ⊕黑木耳资源站: {
-        api: 'https://xml02.heimuer.xyz/api.php/provide/vod',
-        name: '⊕黑木耳资源站',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    ⊕无尽资源网: {
-        api: 'https://api.wujinapi.me/api.php/provide/vod',
-        name: '⊕无尽资源网',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    ⊕淘片资源网: {
-        api: 'https://taopianapi.com/cjapi/mc/vod/xml',
-        name: '⊕淘片资源网',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    ⊕八戒资源网: {
-        api: 'http://cj.bajiecaiji.com/inc/seacmsapi.php',
-        name: '⊕八戒资源网',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    ⊕四九资源网: {
-        api: 'https://49zyw.com/api.php/provide/vod',
-        name: '⊕四九资源网',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    ⊕HW8资源: {
-        api: 'https://huawei8.live/api.php/provide/vod',
-        name: '⊕HW8资源',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    ⊕暴风资源网: {
-        api: 'https://bfzyapi.com/api.php/provide/vod',
-        name: '⊕暴风资源网',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    ⊕最大资源网: {
-        api: 'https://api.zuidapi.com/api.php/provide/vod',
-        name: '⊕最大资源网',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    ⊕U酷资源网: {
-        api: 'https://api.ukuapi.com/api.php/provide/vod',
-        name: '⊕U酷资源网',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    ⊕魔都动漫: {
-        api: 'https://caiji.moduapi.cc/api.php/provide/vod',
-        name: '⊕魔都动漫',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    ⊕IKun资源网: {
-        api: 'https://www.ikunzy.com/api.php/seaxml/vod',
-        name: '⊕IKun资源网',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    ⊕红牛资源网: {
-        api: 'https://www.hongniuzy3.com/api.php/provide/vod',
-        name: '⊕红牛资源网',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    🔅TV酷影视ᴴ: {
-        api: 'https://www.tvkuys.xyz/api.php/app',
-        name: '🔅TV酷影视ᴴ',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    🔅飘零影院ᴴ: {
-        api: 'https://p2100.net/api.php/provide/vod',
-        name: '🔅飘零影院ᴴ',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    🔅段友影视ᴴ: {
-        api: 'https://shangjihuoke.com/api.php/tv.vod',
-        name: '🔅段友影视ᴴ',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    🔅影图资源ᴴ: {
-        api: 'https://cj.vodimg.top/api.php/provide/vod',
-        name: '🔅影图资源ᴴ',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    🔅樱花资源ᴴ: {
-        api: 'https://yhzy.cc/api.php/provide/vod',
-        name: '🔅樱花资源ᴴ',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    🔅苹果资源ᴴ: {
-        api: 'https://pg.fenwe078.cf/api.php/provide/vod',
-        name: '🔅苹果资源ᴴ',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    🔅TK资源ᴴ: {
-        api: 'https://m3u8.tiankongapi.com/api.php/provide/vod',
-        name: '🔅TK资源ᴴ',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    🔅华为吧影视ᴴ: {
-        api: 'https://cjhwba.com/api.php/provide/vod',
-        name: '🔅华为吧影视ᴴ',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    🔅木耳资源ᴴ: {
-        api: 'https://json02.heimuer.xyz/api.php/provide/vod',
-        name: '🔅木耳资源ᴴ',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    🔅春莹淘片ᴴ: {
-        api: 'https://taopianapi.com/cjapi/mc10/vod/xml.html',
-        name: '🔅春莹淘片ᴴ',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    🔅牛牛资源ᴴ: {
-        api: 'https://api.niuniuzy.me/api.php/provide/vod/from/nnm3u8',
-        name: '🔅牛牛资源ᴴ',
-        detail: 'http://caiji.dyttzyapi.com',
-    },
-    🌀 电影天堂资源ᴴ: {
+        dyttzy: {
         api: 'http://caiji.dyttzyapi.com/api.php/provide/vod',
-        name: '🌀 电影天堂资源ᴴ',
-        detail: 'http://caiji.dyttzyapi.com',
+        name: '电影天堂资源',
+        detail: 'http://caiji.dyttzyapi.com', 
     },
-    🌀 如意资源ᴴ: {
+    ruyi: {
         api: 'https://cj.rycjapi.com/api.php/provide/vod',
-        name: '🌀 如意资源ᴴ',
-        detail: 'http://caiji.dyttzyapi.com',
+        name: '如意资源',
     },
-    🌀 天涯资源ᴴ: {
+    bfzy: {
+        api: 'https://bfzyapi.com/api.php/provide/vod',
+        name: '暴风资源',
+    },
+    tyyszy: {
         api: 'https://tyyszy.com/api.php/provide/vod',
-        name: '🌀 天涯资源ᴴ',
-        detail: 'http://caiji.dyttzyapi.com',
+        name: '天涯资源',
     },
-    🌀 非凡影视ᴴ: {
+    // xiaomaomi: {
+    //     api: 'https://zy.xiaomaomi.cc/api.php/provide/vod',
+    //     name: '小猫咪资源',
+    // },
+    ffzy: {
         api: 'http://ffzy5.tv/api.php/provide/vod',
-        name: '🌀 非凡影视ᴴ',
-        detail: 'http://caiji.dyttzyapi.com',
+        name: '非凡影视',
+        detail: 'http://ffzy5.tv', 
     },
-    🌀 iqiyi资源ᴴ: {
+    heimuer: {
+        api: 'https://json.heimuer.xyz/api.php/provide/vod',
+        name: '黑木耳',
+        detail: 'https://heimuer.tv', 
+    },
+    zy360: {
+        api: 'https://360zy.com/api.php/provide/vod',
+        name: '360资源',
+    },
+    iqiyi: {
         api: 'https://www.iqiyizyapi.com/api.php/provide/vod',
-        name: '🌀 iqiyi资源ᴴ',
-        detail: 'http://caiji.dyttzyapi.com',
+        name: 'iqiyi资源',
     },
-    🌀 豆瓣资源ᴴ: {
+    wolong: {
+        api: 'https://wolongzyw.com/api.php/provide/vod',
+        name: '卧龙资源',
+    }, 
+    hwba: {
+        api: 'https://cjhwba.com/api.php/provide/vod',
+        name: '华为吧资源',
+    },
+    jisu: {
+        api: 'https://jszyapi.com/api.php/provide/vod',
+        name: '极速资源',
+        detail: 'https://jszyapi.com', 
+    },
+    dbzy: {
         api: 'https://dbzy.tv/api.php/provide/vod',
-        name: '🌀 豆瓣资源ᴴ',
-        detail: 'http://caiji.dyttzyapi.com',
+        name: '豆瓣资源',
     },
-    🌀 魔爪资源ᴴ: {
+    mozhua: {
         api: 'https://mozhuazy.com/api.php/provide/vod',
-        name: '🌀 魔爪资源ᴴ',
-        detail: 'http://caiji.dyttzyapi.com',
+        name: '魔爪资源',
     },
-    🌀 百度云资源ᴴ: {
+    mdzy: {
+        api: 'https://www.mdzyapi.com/api.php/provide/vod',
+        name: '魔都资源',
+    },
+    zuid: {
+        api: 'https://api.zuidapi.com/api.php/provide/vod',
+        name: '最大资源'
+    },
+    yinghua: {
+        api: 'https://m3u8.apiyhzy.com/api.php/provide/vod',
+        name: '樱花资源'
+    },
+    baidu: {
         api: 'https://api.apibdzy.com/api.php/provide/vod',
-        name: '🌀 百度云资源ᴴ',
-        detail: 'http://caiji.dyttzyapi.com',
+        name: '百度云资源'
     },
-    🌀 旺旺短剧ᴴ: {
+    wujin: {
+        api: 'https://api.wujinapi.me/api.php/provide/vod',
+        name: '无尽资源'
+    },
+    wwzy: {
         api: 'https://wwzy.tv/api.php/provide/vod',
-        name: '🌀 旺旺短剧ᴴ',
-        detail: 'http://caiji.dyttzyapi.com',
+        name: '旺旺短剧'
     },
+    ikun: {
+        api: 'https://ikunzyapi.com/api.php/provide/vod',
+        name: 'iKun资源'
+    }
 };
 // 添加聚合搜索的配置选项
 const AGGREGATED_SEARCH_CONFIG = {
