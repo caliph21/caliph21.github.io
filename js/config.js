@@ -8,6 +8,7 @@ const MAX_HISTORY_ITEMS = 5;
 const PASSWORD_CONFIG = {
     localStorageKey: 'passwordVerified',  // 存储验证状态的键名
     verificationTTL: 90 * 24 * 60 * 60 * 1000,  // 验证有效期（90天，约3个月）
+    adminLocalStorageKey: 'adminPasswordVerified'  // 新增的管理员验证状态的键名
 };
 
 // 网站信息配置
@@ -15,7 +16,7 @@ const SITE_CONFIG = {
     name: 'LibreTV',
     url: 'https://libretv.is-an.org',
     description: '免费在线视频搜索与观看平台',
-    logo: 'https://images.icon-icons.com/38/PNG/512/retrotv_5520.png',
+    logo: 'image/logo.png',
     version: '1.0.3'
 };
 
@@ -24,204 +25,268 @@ const API_SITES = {
     qihuziyu: {
         api: 'https://caiji.qhzyapi.com/api.php/provide/vod',
         name: '奇虎资源'
-        },
+    },
     suboziyu: {
         api: 'https://subocaiji.com/api.php/provide/vod',
         name: '速播资源'
-        },
+    },
     tikoziyuwa: {
         api: 'https://api.tiankongapi.com/api.php/provide/vod',
         name: '天空资源网'
-        },
+    },
     gusuziyuwa: {
         api: 'https://api.guangsuapi.com/api.php/provide/vod',
         name: '光速资源网'
-        },
+    },
     jiyiziyu: {
         api: 'https://jyzyapi.com/provide/vod',
         name: '金鹰资源'
-        },
+    },
     yayaziyu: {
         api: 'https://cj2.yayazy.net/api.php/provide/vod/from/yym3u8',
         name: '鸭鸭资源'
-        },
+    },
     kuchziyu: {
         api: 'https://caiji.kczyapi.com/api.php/provide/vod',
         name: '快车资源'
-        },
+    },
     agdoma: {
         api: 'https://ageapi.omwjhz.com/v2/search',
         name: 'AGE动漫'
-        },
+    },
     jisuziyu: {
         api: 'https://jszyapi.com/api.php/provide/vod',
         name: '极速资源'
-        },
+    },
     shdiziyu: {
         api: 'https://xsd.sdzyapi.com/api.php/provide/vod',
         name: '闪电资源'
-        },
+    },
     suniziyu: {
         api: 'https://suoniapi.com/api.php/provide/vod/from/snm3u8',
         name: '索尼资源'
-        },
+    },
     36ziyu: {
         api: 'https://360zy.com/api.php/provide/vod',
         name: '360资源'
-        },
+    },
     xilaziyu: {
         api: 'https://api.xinlangapi.com/xinlangapi.php/provide/vod',
         name: '新浪资源'
-        },
+    },
     huyaziyu: {
         api: 'https://www.huyaapi.com/api.php/provide/vod',
         name: '虎牙资源'
-        },
+    },
     liziziyu: {
         api: 'https://cj.lziapi.com/api.php/provide/vod',
         name: '量子资源'
-        },
+    },
     hahuziyu: {
         api: 'https://hhzyapi.com/api.php/provide/vod',
         name: '豪华资源'
-        },
+    },
     yujiziyu: {
         api: 'https://m3u8.apiyhzy.com/api.php/provide/vod',
         name: '云解资源'
-        },
+    },
     woloziyu: {
         api: 'https://collect.wolongzyw.com/api.php/provide/vod',
         name: '卧龙资源'
-        },
+    },
     hemuerziyu: {
         api: 'https://xml02.heimuer.xyz/api.php/provide/vod',
         name: '黑木耳资源'
-        },
+    },
     wujiziyu: {
         api: 'https://api.wujinapi.me/api.php/provide/vod',
         name: '无尽资源'
-        },
+    },
     tapiziyu: {
         api: 'https://taopianapi.com/cjapi/mc/vod/xml',
         name: '淘片资源'
-        },
+    },
     bajiziyu: {
         api: 'http://cj.bajiecaiji.com/inc/seacmsapi.php',
         name: '八戒资源'
-        },
+    },
     sijiziyu: {
         api: 'https://49zyw.com/api.php/provide/vod',
         name: '四九资源'
-        },
+    },
     hwzi: {
         api: 'https://huawei8.live/api.php/provide/vod',
         name: 'HW8资'
-        },
+    },
     bafeziyu: {
         api: 'https://bfzyapi.com/api.php/provide/vod',
         name: '暴风资源'
-        },
+    },
     zudaziyu: {
         api: 'https://api.zuidapi.com/api.php/provide/vod',
         name: '最大资源'
-        },
+    },
     ukuziyu: {
         api: 'https://api.ukuapi.com/api.php/provide/vod',
         name: 'U酷资源'
-        },
+    },
     mododo: {
         api: 'https://caiji.moduapi.cc/api.php/provide/vod',
         name: '魔都动'
-        },
+    },
     ikziyu: {
         api: 'https://www.ikunzy.com/api.php/seaxml/vod',
         name: 'IKun资源'
-        },
+    },
     honiziyu: {
         api: 'https://www.hongniuzy3.com/api.php/provide/vod',
         name: '红牛资源'
-        },
+    },
     tvkuyish: {
         api: 'https://www.tvkuys.xyz/api.php/app',
         name: 'TV酷影视'
-        },
+    },
     piliyiyu: {
         api: 'https://p2100.net/api.php/provide/vod',
         name: '飘零影院'
-        },
+    },
     duyoyish: {
         api: 'https://shangjihuoke.com/api.php/tv.vod',
         name: '段友影视'
-        },
+    },
     yituziyu: {
         api: 'https://cj.vodimg.top/api.php/provide/vod',
         name: '影图资源'
-        },
+    },
     yihuziyu: {
         api: 'https://yhzy.cc/api.php/provide/vod',
         name: '樱花资源'
-        },
+    },
     piguziyu: {
         api: 'https://pg.fenwe078.cf/api.php/provide/vod',
         name: '苹果资源'
-        },
+    },
     tkziyu: {
         api: 'https://m3u8.tiankongapi.com/api.php/provide/vod',
         name: 'TK资源'
-        },
+    },
     huwebayish: {
         api: 'https://cjhwba.com/api.php/provide/vod',
         name: '华为吧影视'
-        },
+    },
     muerziyu: {
         api: 'https://json02.heimuer.xyz/api.php/provide/vod',
         name: '木耳资源'
-        },
+    },
     chyitapi: {
         api: 'https://taopianapi.com/cjapi/mc10/vod/xml.html',
         name: '春莹淘片'
-        },
+    },
     niniziyu: {
         api: 'https://api.niuniuzy.me/api.php/provide/vod/from/nnm3u8',
         name: '牛牛资源'
-        },
+    },
     diyititaziyu: {
         api: 'http://caiji.dyttzyapi.com/api.php/provide/vod',
         name: '电影天堂资源'
-        },
+    },
     ruyiziyu: {
         api: 'https://cj.rycjapi.com/api.php/provide/vod',
         name: '如意资源'
-        },
+    },
     tiyaziyu: {
         api: 'https://tyyszy.com/api.php/provide/vod',
         name: '天涯资源'
-        },
+    },
     fefayish: {
         api: 'http://ffzy5.tv/api.php/provide/vod',
         name: '非凡影视'
-        },
+    },
     iqziyu: {
         api: 'https://www.iqiyizyapi.com/api.php/provide/vod',
         name: 'iqiyi资源'
-        },
+    },
     dobaziyu: {
         api: 'https://dbzy.tv/api.php/provide/vod',
         name: '豆瓣资源'
-        },
+    },
     mozhziyu: {
         api: 'https://mozhuazy.com/api.php/provide/vod',
         name: '魔爪资源'
-        },
+    },
     baduyuziyu: {
         api: 'https://api.apibdzy.com/api.php/provide/vod',
         name: '百度云资源'
-        },
+    },
     wawaduju: {
         api: 'https://wwzy.tv/api.php/provide/vod',
         name: '旺旺短剧'
-        }
+    },
+    // 下面是一些成人内容的API源，默认隐藏，使用本项目浏览黄色内容违背项目初衷
+    // 互联网上传播的色情内容将人彻底客体化、工具化，是性别解放和人类平等道路上的巨大障碍。
+    // 这些黄色影片是资本主义父权制压迫的最恶毒体现，它将暴力和屈辱商品化，践踏人的尊严，对受害者造成无法弥愈的伤害，并毒害社会关系。
+    // 资本为了利润，不惜将最卑劣的剥削（包括对受害者和表演者的剥削）和暴力商品化，
+    // 把性别剥削塑造成“性享受”麻痹观众的意识，转移我们对现实生活中矛盾和压迫的注意力。
+    // 这些影片和背后的产业已经使数百万男女“下海”，出卖自己的身体，甚至以此为生计。
+    // 而作为观众无辜吗？毫无疑问，他们促成了黄色产业链的再生产。
+    // 我们提供此警告，是希望您能认清这些内容的本质——它们是压迫和奴役的工具，而非娱乐。
+    // ckzy: {
+    //     api: 'https://www.ckzy1.com',
+    //     name: 'CK资源',
+    //     adult: true
+    // },
+    // jkun: {
+    //     api: 'https://jkunzyapi.com',
+    //     name: 'jkun资源',
+    //     adult: true
+    // },
+    // bwzy: {
+    //     api: 'https://api.bwzym3u8.com',
+    //     name: '百万资源',
+    //     adult: true
+    // },
+    // souav: {
+    //     api: 'https://api.souavzy.vip',
+    //     name: 'souav资源',
+    //     adult: true
+    // },
+    // r155: {
+    //     api: 'https://155api.com',
+    //     name: '155资源',
+    //     adult: true
+    // },
+    // lsb: {
+    //     api: 'https://apilsbzy1.com',
+    //     name: 'lsb资源',
+    //     adult: true
+    // },
+    // huangcang: {
+    //     api: 'https://hsckzy.vip',
+    //     name: '黄色仓库',
+    //     adult: true,
+    //     detail: 'https://hsckzy.vip'
+    // },
+    // yutu: {
+    //     api: 'https://yutuzy10.com',
+    //     name: '玉兔资源',
+    //     adult: true
+    // },
+
+    // 下面是资源失效率高的API源，不建议使用
+    // subo: {
+    //     api: 'https://subocaiji.com/api.php/provide/vod',
+    //     name: '速播资源'
+    // },
+    // fczy: {
+    //     api: 'https://api.fczy888.me/api.php/provide/vod',
+    //     name: '蜂巢资源'
+    // },
+    // ukzy: {
+    //     api: 'https://api.ukuapi88.com/api.php/provide/vod',
+    //     name: 'U酷资源'
+    // },
 };
+
 // 添加聚合搜索的配置选项
 const AGGREGATED_SEARCH_CONFIG = {
     enabled: true,             // 是否启用聚合搜索
@@ -234,16 +299,18 @@ const AGGREGATED_SEARCH_CONFIG = {
 // 抽象API请求配置
 const API_CONFIG = {
     search: {
-    	// 修改搜索接口为返回更多详细数据（包括视频封面、简介和播放列表）
-        path: '/api.php/provide/vod/?ac=videolist&wd=',
+        // 只拼接参数部分，不再包含 /api.php/provide/vod/
+        path: '?ac=videolist&wd=',
+        pagePath: '?ac=videolist&wd={query}&pg={page}',
+        maxPages: 50, // 最大获取页数
         headers: {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
             'Accept': 'application/json'
         }
     },
     detail: {
-    	// 修改详情接口也使用videolist接口，但是通过ID查询，减少请求次数
-        path: '/api.php/provide/vod/?ac=videolist&ids=',
+        // 只拼接参数部分
+        path: '?ac=videolist&ids=',
         headers: {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
             'Accept': 'application/json'
@@ -299,5 +366,5 @@ const CUSTOM_API_CONFIG = {
     adultPropName: 'isAdult' // 用于标记成人内容的属性名
 };
 
-// 新增隐藏内置黄色采集站API的变量，默认为true
-const HIDE_BUILTIN_ADULT_APIS = true;
+// 隐藏内置黄色采集站API的变量
+const HIDE_BUILTIN_ADULT_APIS = false;
