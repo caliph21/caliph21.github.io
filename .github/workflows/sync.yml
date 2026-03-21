@@ -1,0 +1,31 @@
+name: 同步 zubo 文件
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: 从 zubo 仓库复制文件
+        run: |
+          git clone --depth 1 https://github.com/caliph21/zubo.git /tmp/zubo
+          mkdir -p zubo
+          cp -r /tmp/zubo/* zubo/ 2>/dev/null || true
+          rm -rf /tmp/zubo
+          ls -la zubo/
+      
+      - name: 提交推送
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add zubo/
+          git diff --cached --quiet || git commit -m "同步 zubo 文件"
+          git push
