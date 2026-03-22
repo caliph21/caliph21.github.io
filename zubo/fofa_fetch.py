@@ -6,7 +6,7 @@ import concurrent.futures
 import subprocess
 from datetime import datetime, timezone, timedelta
 import socket
-
+# fofa_fetch.py
 # ===============================
 # 配置区
 FOFA_URLS = {
