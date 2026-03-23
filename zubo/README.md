@@ -1,3 +1,13 @@
+## Star History
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=caliph21/zubo&type=Date&theme=dark" />
+  <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=caliph21/zubo&type=Date" />
+  <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=caliph21/zubo&type=Date" />
+</picture>
+
+
+
 
 # （本仓库为轻量级：适用于github actions）定时抓取 组播源  酒店源
 
