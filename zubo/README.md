@@ -1,0 +1,87 @@
+## Star History
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=caliph21/zubo&type=Date&theme=dark" />
+  <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=caliph21/zubo&type=Date" />
+  <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=caliph21/zubo&type=Date" />
+</picture>
+
+
+
+
+# （本仓库为轻量级：适用于github actions）定时抓取 组播源  酒店源
+
+## ⚠️ 备注
+**新增频道或新增地方频道或其他**  
+1. 组播源确保rtp/省份运营商.txt有需要的频道，没有则新增。
+2. 脚本里频道分类CHANNEL_CATEGORIES里添加新增频道名，如果有需要在频道名称映射CHANNEL_MAPPING里做映射更改。
+3. WV公众号：卡卡西的电视房
+
+---
+
+## 组播Docker版（解决断流）
+1.拉取镜像 `docker pull kakaxi088/zubo` 默认拉取最新版
+
+2.启动容器 `docker run -d --name zubo -p 5020:5020 kakaxi088/zubo:latest` 5020端口被占用可设置其他端口（port）
+
+3.容器第一次启动运行抓取需要5分钟左右，输入 `docker logs -f zubo` 查看抓取状态
+
+4.通过可视面板`http://载具ip:port`增减频道，添加映射
+
+5.等待抓取完成后 `http://载具ip:port/zubo.txt` 订阅。
+
+---
+
+## 酒店源Docker版
+1.拉取镜像 `docker pull kakaxi088/kakaxi` 默认拉取最新版
+
+2.启动容器 `docker run -d --name kakaxi -p 5000:5000 kakaxi088/kakaxi:latest` 5000端口被占用可设置其他端口（port）
+
+3.容器第一次启动运行抓取需要30-60分钟，输入 `docker logs -f kakaxi` 查看抓取状态
+
+4.通过可视面板`http://载具ip:port`增减频道，添加映射
+
+5.等待抓取完成后 `http://载具ip:port/list.txt` 订阅。
+
+---
+
+## 📔 更新日志
+**增加组播源docker版(解决组播断流)**
+
+v3.3.0增强优化
+
+V3.2.0优化切换频道提速，增加手动更新按钮以及面板登录密码
+
+v3.1.0修复播放器兼容性问题等系列bug
+
+v3.0.1解决组播断流
+
+**增加酒店源docker版本**
+
+v1.5.2修复bug
+
+v1.5.1空壳版，纯面板操作，优化频道检测，提示播放体验
+
+v1.4.6新增增减频道功能，通过可视面板（http://载具ip:port）增减频道，添加映射
+
+v1.4.5稳健版
+
+**25-12-7新增定时抓取酒店源**
+
+**25-11-24更新第一、二、三阶段**
+1. 删除73次清空ip目录，ip归属地运营商判断规则。
+2. 解决rtp/udp合并问题。
+3. 改为每10次触发第二第三阶段生成iptv的同时覆盖可用ip到对应ip目录。
+4. 新增fofa抓域名筛选有效并保存
+
+**25-10-16基础奠定**  
+1. 每20分钟运行一场抓ip，并非20分钟更新IPTV文件。
+2. 脚本中第二第三阶段(处理IPTV相关）只在计数为12倍数的时候触发，也就是每抓取12次ip后触发，约等于每四小时，如果yml文件设定每4小时运行，那么将很难抓到够用的ip
+3. 问题求助：计数为73次时，清空ip文件夹，并且计数为1开始新的轮回。求助保留72次运行中可用ip
+
+---
+
+
+
+
+

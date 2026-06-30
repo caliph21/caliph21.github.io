@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITV 文件列表</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 28px; margin-bottom: 8px; }
+        .header p { opacity: 0.9; font-size: 14px; word-break: break-all; }
+        .stats {
+            background: #f8f9fa;
+            padding: 15px 30px;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            color: #6c757d;
+        }
+        .stats span { font-weight: 600; color: #333; }
+        .file-list { padding: 20px 30px 30px; }
+        .file-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .file-item:hover { background: #f8f9fa; }
+        .file-icon {
+            width: 40px;
+            font-size: 24px;
+            text-align: center;
+        }
+        .file-info {
+            flex: 1;
+            min-width: 150px;
+        }
+        .file-name {
+            font-weight: 500;
+            color: #333;
+            word-break: break-all;
+        }
+        .file-url {
+            font-size: 11px;
+            color: #6c757d;
+            margin-top: 4px;
+            word-break: break-all;
+        }
+        .button-group {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        .btn {
+            border: none;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .btn-visit {
+            background: #667eea;
+            color: white;
+        }
+        .btn-visit:hover {
+            background: #5a67d8;
+            transform: translateY(-1px);
+        }
+        .btn-copy {
+            background: #f0f0f0;
+            color: #333;
+        }
+        .btn-copy:hover {
+            background: #e0e0e0;
+            transform: translateY(-1px);
+        }
+        .btn-copy.copied {
+            background: #28a745;
+            color: white;
+        }
+        .footer {
+            background: #f8f9fa;
+            padding: 15px 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #6c757d;
+            border-top: 1px solid #e9ecef;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+        .badge {
+            background: #e9ecef;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 11px;
+            margin-left: 8px;
+        }
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        .toast.show {
+            opacity: 1;
+        }
+        @media (max-width: 650px) {
+            .file-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .button-group {
+                margin-left: 55px;
+                margin-top: 8px;
+            }
+            .file-icon {
+                align-self: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>📺 ITV 资源列表</h1>
+        <p>itv.1920.qzz.io</p>
+    </div>
+    <div class="stats" id="stats">
+        正在加载文件列表...
+    </div>
+    <div class="file-list" id="fileList">
+        <div class="loading">⏳ 正在扫描文件，请稍后...</div>
+    </div>
+    <div class="footer">
+        🔗 点击「复制」获取文件地址 | 点击「访问」直接打开文件
+    </div>
+</div>
+<div id="toast" class="toast">✅ 已复制到剪贴板</div>
+
+<script>
+// 需要列出的文件扩展名
+const extensions = ['txt', 'm3u'];
+
+// 手动指定要显示的文件（根据截图中的文件列表）
+const manualFiles = [
+    "IPTV.txt",
+    "ITVlist.py",
+    "MiGu.txt",
+    "README.md",
+    "bc.m3u",
+    "bilibiliive.m3u",
+    "dyyqk.m3u",
+    "fofa_fetch.py",
+    "hyyqk.m3u",
+    "iTV.txt",
+    "ip_urls.txt",
+    "itvlist.txt",
+    "yylb.m3u",
+    "vyh.m3u",
+    "计数.txt"
+];
+
+// 去重
+const allFiles = [...new Set(manualFiles)];
+const mediaFiles = allFiles.filter(file => {
+    const ext = file.split('.').pop().toLowerCase();
+    return extensions.includes(ext);
+});
+
+// 优先显示 txt/m3u，其他文件也显示
+const displayFiles = mediaFiles.length > 0 ? mediaFiles : allFiles;
+
+function getFileIcon(filename) {
+    const ext = filename.split('.').pop().toLowerCase();
+    if (ext === 'm3u') return '🎬';
+    if (ext === 'txt') return '📄';
+    if (ext === 'py') return '🐍';
+    if (ext === 'md') return '📝';
+    return '📁';
+}
+
+// 显示提示消息
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message || '✅ 已复制到剪贴板';
+    toast.classList.add('show');
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 2000);
+}
+
+// 复制文本到剪贴板
+async function copyToClipboard(text, buttonElement) {
+    try {
+        await navigator.clipboard.writeText(text);
+        // 按钮视觉反馈
+        const originalText = buttonElement.innerHTML;
+        buttonElement.innerHTML = '✓ 已复制';
+        buttonElement.classList.add('copied');
+        showToast(`✅ 已复制: ${text}`);
+        setTimeout(() => {
+            buttonElement.innerHTML = originalText;
+            buttonElement.classList.remove('copied');
+        }, 1500);
+    } catch (err) {
+        // 降级方案：使用 textarea
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        buttonElement.innerHTML = '✓ 已复制';
+        buttonElement.classList.add('copied');
+        showToast(`✅ 已复制: ${text}`);
+        setTimeout(() => {
+            buttonElement.innerHTML = originalText;
+            buttonElement.classList.remove('copied');
+        }, 1500);
+    }
+}
+
+async function loadFiles() {
+    const fileListDiv = document.getElementById('fileList');
+    const statsDiv = document.getElementById('stats');
+    
+    const baseUrl = window.location.origin;
+    
+    // 更新统计
+    statsDiv.innerHTML = `📁 共 <span>${displayFiles.length}</span> 个文件  |  🎬 m3u: <span>${displayFiles.filter(f => f.endsWith('.m3u')).length}</span>  |  📄 txt: <span>${displayFiles.filter(f => f.endsWith('.txt')).length}</span>`;
+    
+    if (displayFiles.length === 0) {
+        fileListDiv.innerHTML = '<div class="loading">❌ 没有找到 .txt 或 .m3u 文件</div>';
+        return;
+    }
+    
+    fileListDiv.innerHTML = '';
+    
+    for (const filename of displayFiles) {
+        const fileUrl = `${baseUrl}/${filename}`;
+        const fileIcon = getFileIcon(filename);
+        const extName = filename.split('.').pop().toUpperCase();
+        
+        const fileItem = document.createElement('div');
+        fileItem.className = 'file-item';
+        fileItem.innerHTML = `
+            <div class="file-icon">${fileIcon}</div>
+            <div class="file-info">
+                <div class="file-name">
+                    ${filename}
+                    <span class="badge">${extName}</span>
+                </div>
+                <div class="file-url">${fileUrl}</div>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-copy copy-btn" data-url="${fileUrl}">📋 复制</button>
+                <a href="${fileUrl}" class="btn btn-visit" target="_blank">🔗 访问</a>
+            </div>
+        `;
+        fileListDiv.appendChild(fileItem);
+    }
+    
+    // 绑定复制按钮事件
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const url = btn.getAttribute('data-url');
+            copyToClipboard(url, btn);
+        });
+    });
+}
+
+// 页面加载后执行
+loadFiles();
+</script>
+</body>
+</html>

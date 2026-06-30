@@ -1,0 +1,20 @@
+{
+    "lives": [
+        {
+            "name": "咪咕直播源",
+            "url": "http://129.211.14.102:27777/api.php?token=c164b1427bac7946a974cccd8909adcd"
+        },
+        {
+            "name": "央视卫视接口",
+            "url": "http://129.211.14.102:27777/api.php?token=4255b7aa0936d50e5d5e5761ed8372f1"
+        },
+        {
+            "name": "陕西有线接口",
+            "url": "http://129.211.14.102:27777/api.php?token=f4a5774b864d61cf430f0d8985de054c"
+        },
+        {
+            "name": "天津电视广播接口",
+            "url": "http://129.211.14.102:27777/api.php?token=9f7af1b1c25563437deab1354f52def9"
+        }
+    ]
+}

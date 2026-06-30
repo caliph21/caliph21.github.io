@@ -1,0 +1,67 @@
+name: 从上游同步 xiaosa
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "20 22 */7 * *"
+  
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      changed: ${{ steps.check_changes.outputs.changed }}   # ✅ 改成 check_changes
+    steps:
+      - name: 检出我的仓库
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+          
+
+      - name: 下载并同步到 xiaosa目录
+        run: |
+          curl -L https://github.com/qist/tvbox/archive/master.zip -o master.zip
+          unzip -q master.zip
+          rm -rf xiaosa
+          mv tvbox-master/xiaosa xiaosa
+          rm -rf master.zip tvbox-master
+          echo "✅ xiaosa 目录同步完成"
+          ls -la xiaosa/
+
+      - name: 检查是否有变化
+        id: check_changes
+        run: |
+          git add xiaosa
+          if git diff --cached --quiet; then
+            echo "📭 没有变化，跳过提交和 merge"
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "🔄 检测到变化，准备提交"
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 提交并推送
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "🔄 同步上游 xiaosa $(date '+%Y-%m-%d %H:%M')"
+          git push origin main
+
+  trigger-merge:
+    needs: sync
+    if: needs.sync.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
+    steps:
+      - name: 触发 Merge JAR
+        run: |
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/actions/workflows/Merge_jar.yml/dispatches \
+            -d '{"ref":"main"}'

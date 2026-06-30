@@ -1,0 +1,147 @@
+name: Merge JAR Files
+
+on:
+  workflow_run:
+    workflows: ["从上游同步 xiaosa"]
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  merge-jars:
+    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          repository: caliph21/caliph21.github.io
+          path: xiaosa
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check if sync had changes or MD5 mismatch
+        id: check_sync
+        run: |
+          cd xiaosa
+          # 检查最近的提交是否包含 "同步上游" 关键字
+          LAST_COMMIT=$(git log -1 --pretty=%B)
+          echo "Last commit: $LAST_COMMIT"
+          
+          SYNC_COMMIT=false
+          if echo "$LAST_COMMIT" | grep -q "同步上游"; then
+            echo "✅ 检测到同步提交"
+            SYNC_COMMIT=true
+          else
+            echo "📭 没有同步提交"
+          fi
+          
+          # 检查 MD5 是否不一致
+          SPIDER_JAR=$(find . -name "spider.jar" -type f | head -1)
+          BXS_JAR=$(find . -name "BXS.jar" -type f | head -1)
+          
+          SPIDER_MD5=$(md5sum "$SPIDER_JAR" | awk '{print $1}')
+          BXS_MD5=$(md5sum "$BXS_JAR" | awk '{print $1}')
+          echo "spider.jar MD5: $SPIDER_MD5"
+          echo "BXS.jar MD5: $BXS_MD5"
+          
+          MD5_MISMATCH=false
+          if [ "$SPIDER_MD5" != "$BXS_MD5" ]; then
+            echo "✅ MD5 不一致"
+            MD5_MISMATCH=true
+          else
+            echo "📭 MD5 一致"
+          fi
+          
+          # 任一条件满足就执行
+          if [ "$SYNC_COMMIT" = true ] || [ "$MD5_MISMATCH" = true ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        if: steps.check_sync.outputs.has_changes == 'true'
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+
+      - name: Merge and replace
+        if: steps.check_sync.outputs.has_changes == 'true'
+        run: |
+          cd xiaosa
+          
+          SPIDER_JAR=$(find . -name "spider.jar" -type f | head -1)
+          BXS_JAR=$(find . -name "BXS.jar" -type f | head -1)
+          
+          echo "Found spider.jar: $SPIDER_JAR"
+          echo "Found BXS.jar: $BXS_JAR"
+          
+          mkdir -p temp
+          cd temp
+          
+          # 1. 解压BXS.jar（目标基础文件）
+          jar xf "../$BXS_JAR"
+          
+          # 2. 检查是否有classes.dex
+          if [ -f "classes.dex" ]; then
+            # 3. 将BXS.jar的classes.dex转换为jar
+            ../dex-tools-v2.4/d2j-dex2jar.sh classes.dex -o bxs-converted.jar
+            
+            # 4. 解压转换后的jar
+            jar xf bxs-converted.jar
+            
+            # 5. 提取spider.jar中的com/github/catvod/spider目录
+            jar xf "../$SPIDER_JAR" com/github/catvod/spider
+            
+            # 6. 重新打包为jar
+            jar cf new-classes.jar *
+            
+            # 7. 转回dex
+            ../dex-tools-v2.4/d2j-jar2dex.sh new-classes.jar -o classes.dex
+            
+            # 8. 更新BXS.jar中的classes.dex
+            jar uf "../$BXS_JAR" classes.dex
+          else
+            exit 1
+          fi
+          
+          cd ..
+          rm -rf temp
+          
+          # 检查是否有实际变化
+          if cmp -s "$BXS_JAR" "$SPIDER_JAR"; then
+            echo "📭 文件没有变化，跳过替换"
+            exit 0
+          fi
+          
+          rm -f "$SPIDER_JAR"
+          cp "$BXS_JAR" "$SPIDER_JAR"
+          
+          # 计算新 MD5 并替换到 api.json
+          NEW_MD5=$(md5sum "$SPIDER_JAR" | awk '{print $1}')
+          echo "New MD5: $NEW_MD5"
+          sed -i 's/\(spider\.jar;md5;\)[^,]*/\1'"$NEW_MD5"'/' ./xiaosa/api.json
+          echo "api.json updated"
+          
+      - name: Commit and push
+        if: steps.check_sync.outputs.has_changes == 'true'
+        run: |
+          cd xiaosa
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git add ./xiaosa/spider.jar BXS.jar ./xiaosa/api.json
+          if git diff --cached --quiet; then
+            echo "📭 没有实际变化，跳过提交"
+          else
+            git commit -m "Update spider.jar"
+            git push
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
