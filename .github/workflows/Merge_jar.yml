@@ -126,7 +126,7 @@ jobs:
           # 计算新 MD5 并替换到 api.json
           NEW_MD5=$(md5sum "$SPIDER_JAR" | awk '{print $1}')
           echo "New MD5: $NEW_MD5"
-          sed -i 's/\(spider\.jar;md5;\)[^,]*/\1'"$NEW_MD5"'/' ./xiaosa/api.json
+          sed -i 's/\(spider\.jar;md5;\)[^,"]*/\1'"$NEW_MD5"'/' ./xiaosa/api.json
           echo "api.json updated"
           
       - name: Commit and push
