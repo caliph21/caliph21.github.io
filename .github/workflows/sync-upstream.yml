@@ -3,7 +3,7 @@ name: 从上游同步 xiaosa
 on:
   workflow_dispatch:
   schedule:
-    - cron: "20 22 */7 * *"
+    - cron: "20 22 * * *"
   
 jobs:
   sync:
