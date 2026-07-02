@@ -75,7 +75,10 @@ jobs:
         if: steps.check_sync.outputs.has_changes == 'true'
         run: |
           cd xiaosa
-          
+           
+          # 给 dex2jar 加执行权限
+          chmod +x ../dex-tools-v2.4/*.sh         
+
           SPIDER_JAR=$(find . -name "spider.jar" -type f | head -1)
           BXS_JAR=$(find . -name "BXS.jar" -type f | head -1)
           
