@@ -144,6 +144,8 @@ jobs:
             echo "📭 没有实际变化，跳过提交"
           else
             git commit -m "Update spider.jar"
+            # 拉取最新的远程更改
+            git pull origin main --rebase
             git push
           fi
         env:
