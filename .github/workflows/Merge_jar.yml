@@ -145,7 +145,7 @@ jobs:
           else
             git commit -m "Update spider.jar"
             # 拉取最新的远程更改
-            git pull origin main --rebase
+            git pull --rebase --autostash origin main
             git push
           fi
         env:
